@@ -1,0 +1,18 @@
+<html>
+<head>
+<title>shpjs</title>
+<style>
+textarea#geojson { width:80% ; height:20em }
+</style>
+</head>
+<body>
+<textarea id='geojson'></textarea>
+<script src="shp.min.js"> </script>
+<script>
+var file = 'FreevilleTrees.zip';
+shp(file).then(function(data){
+  document.getElementById('geojson').innerHTML = JSON.stringify(data, null, 2);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<html>
+<head>
+<title>shpjs</title>
+<style>
+#dropzone { padding:2em ; background:#cfc ; border:5px solid #8c8 }
+#geojson { width:80% ; height:20em }
+</style>
+</head>
+<body>
+<div>Choose or drop a file: <input type='file' id='dropzone'></div>
+<textarea id='geojson'></textarea>
+<script src='shp.min.js'> </script>
+<script>
+
+function dragenter(e) {
+  e.stopPropagation();
+  e.preventDefault();
+}
+
+function dragover(e) {
+  e.stopPropagation();
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'copy';
+}
+
+
+function drop(e) {
+  console.log(e);
+  e.stopPropagation();
+  e.preventDefault();
+  var dt = e.dataTransfer;
+  var file = dt.files[1];
+  shp(file).then(function(data){
+    document.getElementById('geojson').innerHTML = JSON.stringify(data);
+  });
+}
+
+var dropzone = document.getElementById('dropzone');
+//dropzone.addEventListener('dragenter', dragenter, false);
+dropzone.addEventListener('dragover', dragover, false);
+dropzone.addEventListener('drop', drop, false);
+dropzone.addEventListener('change', drop, false);
+
+</script>
+</body>
+</html>
